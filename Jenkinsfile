@@ -23,9 +23,7 @@ pipeline {
                 }
                 stage('Build de la aplicación') {
                     steps{
-                        script {
-                            sh 'npm run build'
-                        }
+                        sh 'npm run build'
                     }
                 }
             }
