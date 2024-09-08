@@ -4,27 +4,30 @@ pipeline {
         timeout(time: 3, unit: 'SECONDS')
     }
     stages {
-        stages {
-            stage('Instalacion de dependencias') {
-                agent {
-                    docker {
-                        image 'node:20.11.1-alpine3.19'
+        stage('Build y Test Unitarios') {
+            agent {                    
+                docker {
+                    image 'node:20.11.1-alpine3.19'                    
                     }
                 }
-                steps {
-                    sh 'npm install'
+            stages{
+                stage('Instalación de dependencias del proyecto') {
+                    steps {
+                        sh 'npm install'
+                    }
+                }
+                stage('Ejecución de Test Unitarios') {
+                    steps {
+                        sh 'npm run test'
+                    }
+                }
+                stage('Build de la aplicación') {
+                    steps{
+                        script {
+                            sh 'npm run build'
+                        }
+                    }
                 }
             }
-            stage('Ejecución de Test Unitarios') {
-                steps {
-                    sh 'npm run test'
-                }
-            }
-            stage('Build de la app') {
-                steps {
-                    echo 'Deploying....'
-                }
-            }
-        }
     }
 }
