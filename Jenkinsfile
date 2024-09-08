@@ -5,17 +5,22 @@ pipeline {
     }
     stages {
         stages {
-            stage('Build') {
+            stage('Instalacion de dependencias') {
+                agent {
+                    docker {
+                        image 'node:20.11.1-alpine3.19'
+                    }
+                }
                 steps {
-                    echo 'Building..'
+                    sh 'npm install'
                 }
             }
-            stage('Test') {
+            stage('Ejecución de Test Unitarios') {
                 steps {
-                    echo 'Testing..'
+                    sh 'npm run test'
                 }
             }
-            stage('Deploy') {
+            stage('Build de la app') {
                 steps {
                     echo 'Deploying....'
                 }
