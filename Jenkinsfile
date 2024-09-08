@@ -30,12 +30,9 @@ pipeline {
             }
         }
         stage('Creacion de contenedor docker'){
-            stage('Build de la aplicación') {
-                steps{
-                    sh 'docker build -t backend-base-devops:latest .'
-                }
+            steps{
+                sh 'docker build -t backend-base-devops:latest .'
             }
-
         }
     }
 }
