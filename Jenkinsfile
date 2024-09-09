@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        USERNAME = 'Isabel Anabalon'
+        USERNAME = 'isabel'
     }
     stages {
         stage('Build y Test Unitarios') {
