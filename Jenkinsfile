@@ -40,5 +40,15 @@ pipeline {
                 }
             }
         }
+        stage('Despliegue de la aplicación'){
+            steps{
+                script {
+                   docker.withRegistry('http://localhost:8082', 'clave-nexus') {
+                        sh 'docker compose pull'
+                        sh 'docker compose up --force-recreate --build -d'
+                    }
+                }
+            }
+        }
     }
 }
