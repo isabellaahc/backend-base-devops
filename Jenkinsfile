@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        USERNAME = 'Isabel Anabalon'
+    }
     stages {
         stage('Build y Test Unitarios') {
             agent {                    
@@ -28,9 +31,13 @@ pipeline {
         }
         stage('Creacion de contenedor docker y push a nexus'){
             steps{
-                sh 'docker build -t backend-base-devops:latest .'
-                sh 'docker tag backend-base-devops:latest localhost:8082/backend-base-devops:latest'
-                sh 'docker push localhost:8082/backend-base-devops:latest'
+                script {
+                    docker.withRegistry('http://localhost:8082', 'clave-nexus') {
+                        sh 'docker build -t backend-base-devops:latest .'
+                        sh 'docker tag backend-base-devops:latest localhost:8082/backend-base-devops:latest'
+                        sh 'docker push localhost:8082/backend-base-devops:latest'
+                    }
+                }
             }
         }
     }

@@ -7,10 +7,6 @@ import { esPalindromo } from "../src/palindromo.js";
 
 describe("Pruebas para endpoints", () => {
 
-    test("endpoint /", () => {
-        expect(1 + 1).toBe(2);
-    });
-
     test("endpoint key", () => {
         expect(1 + 1).toBe(2);
     });
