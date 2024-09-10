@@ -39,11 +39,11 @@ pipeline {
                             reuseNode true
                         }
                     }
-                }
-                steps{
-                    script {
-                        withSonarQubeEnv('sonarqube') {
-                            sh 'sonar-scanner'
+                    steps{
+                        script {
+                            withSonarQubeEnv('sonarqube') {
+                                sh 'sonar-scanner'
+                            }
                         }
                     }
                 }
