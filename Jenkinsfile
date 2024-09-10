@@ -35,7 +35,7 @@ pipeline {
                     agent {                    
                         docker {
                             image 'sonarsource/sonar-scanner-cli'
-                            args '--network="devops-infra_default"'
+                            args '--network="devops-infra_default" -v /var/jenkins_home/workspace/backend-base-devops_main:/usr/src'
                             reuseNode true
                         }
                     }
