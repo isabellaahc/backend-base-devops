@@ -42,7 +42,13 @@ pipeline {
                     steps{
                         script {
                             withSonarQubeEnv('sonarqube') {
-                                sh 'sonar-scanner -Dproject.settings=sonar-project.properties'
+                                sh '''
+                                    sonar-scanner \
+                                    -Dsonar.projectKey=backend-base-devops \
+                                    -Dsonar.scm.provider=git \
+                                    -Dsonar.sources=src \
+                                    -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+                                '''
                             }
                         }
                     }
