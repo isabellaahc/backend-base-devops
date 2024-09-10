@@ -35,14 +35,14 @@ pipeline {
                     agent {                    
                         docker {
                             image 'sonarsource/sonar-scanner-cli'
-                            args '--network="devops-infra_default" -v /var/jenkins_home/workspace/backend-base-devops_main:/usr/src'
+                            args '--network="devops-infra_default"'
                             reuseNode true
                         }
                     }
                     steps{
                         script {
                             withSonarQubeEnv('sonarqube') {
-                                sh 'sonar-scanner'
+                                sh 'sonar-scanner -Dproject.settings=sonar-project.properties'
                             }
                         }
                     }
