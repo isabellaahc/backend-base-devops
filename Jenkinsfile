@@ -29,6 +29,25 @@ pipeline {
                 }
             }
         }
+        stage('Code Quality'){
+            stages {
+                stage('analisis de sonarqube'){
+                    agent {                    
+                        docker {
+                            image 'sonarsource/sonar-scanner-cli'
+                            reuseNode true
+                        }
+                    }
+                }
+                steps{
+                    script {
+                        withSonarQubeEnv('sonarqube') {
+                            sh 'sonar-scanner'
+                        }
+                    }
+                }
+            }
+        }
         stage('Creacion de contenedor docker y push a nexus'){
             steps{
                 script {
