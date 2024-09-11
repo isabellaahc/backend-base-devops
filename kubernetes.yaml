@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-base-devops-deployment
+  namespace: devops
+  labels:
+    app: backend-base-devops
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend-base-devops
+  template:
+    metadata:
+      labels:
+        app: backend-base-devops
+    spec:
+      containers:
+        - name: backend-base-devops
+          image: localhost:8082/backend-base-devops:latest
+          env:
+            - name: USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-base-devops
+                  key: USERNAME
+          ports:
+            - containerPort: 3001
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-base-devops-service
+  namespace: devops
+  labels:
+    app: backend-base-devops
+spec:
+  selector:
+    app: backend-base-devops
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3001
