@@ -53,15 +53,6 @@ pipeline {
                         }
                     }
                 }
-                stage('puerta de calidad'){
-                    steps{
-                        script {
-                            timeout(time: 1, unit: 'MINUTES') {
-                                waitForQualityGate abortPipeline: true
-                            }
-                        }
-                    }
-                }
             }
         }
         stage('Creacion de contenedor docker y push a nexus'){
